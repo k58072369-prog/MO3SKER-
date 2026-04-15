@@ -3,6 +3,18 @@
    تطوير بواسطة المبرمج ادهم ايمن
    ========================================= */
 
+// ===== SPA Redirect Handler (GitHub Pages / Static Host Fix) =====
+(function() {
+    var redirect = sessionStorage.getItem('spa_redirect');
+    if (redirect && redirect !== '/') {
+        sessionStorage.removeItem('spa_redirect');
+        // Replace current history state with the intended URL
+        window.history.replaceState(null, '', redirect);
+    }
+})();
+
+
+
 // ===== State Management =====
 const state = {
     timer: {
@@ -557,7 +569,7 @@ let deferredPrompt = null;
 function setupPWA() {
     // تسجيل Service Worker
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('./sw.js')
+        navigator.serviceWorker.register('./sw.js', { scope: './' })
             .then(reg => console.log('[SW] مُسجَّل:', reg.scope))
             .catch(err => console.warn('[SW] فشل التسجيل:', err));
     }

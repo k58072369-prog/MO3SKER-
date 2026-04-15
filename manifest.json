@@ -2,7 +2,8 @@
   "name": "MO3SKER — معسكر المذاكرة",
   "short_name": "MO3SKER",
   "description": "تطبيق معسكر المذاكرة الرقمي لمساعدتك على التركيز وإدارة مهامك الدراسية بفعالية.",
-  "start_url": "/",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#0f172a",
   "theme_color": "#38bdf8",
@@ -11,13 +12,13 @@
   "dir": "rtl",
   "icons": [
     {
-      "src": "icon-192.png",
+      "src": "./icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable any"
     },
     {
-      "src": "icon-512.png",
+      "src": "./icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable any"
