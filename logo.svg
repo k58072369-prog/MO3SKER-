@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" width="200" height="60">
+  <defs>
+    <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#38bdf8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6366f1;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <!-- Shield/Camp Icon -->
+  <path d="M10 8 L30 4 L50 8 L50 28 Q50 42 30 50 Q10 42 10 28 Z" fill="url(#logoGrad)" filter="url(#glow)" opacity="0.9"/>
+  <!-- Star inside shield -->
+  <polygon points="30,14 32.8,22.5 41.5,22.5 34.8,27.5 37.5,36 30,31 22.5,36 25.2,27.5 18.5,22.5 27.2,22.5" fill="white" opacity="0.95"/>
+  <!-- Text -->
+  <text x="60" y="26" font-family="'Orbitron', 'Rajdhani', sans-serif" font-weight="900" font-size="18" fill="url(#logoGrad)" filter="url(#glow)" letter-spacing="3">MO3SKER</text>
+  <text x="60" y="44" font-family="'Cairo', 'Arial', sans-serif" font-weight="700" font-size="10" fill="#94a3b8" letter-spacing="1">معسكرك للتركيز</text>
+</svg>

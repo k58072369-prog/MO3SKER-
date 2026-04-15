@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#38bdf8">
+    <meta name="description" content="معسكرك الرقمي للتركيز والانضباط في المذاكرة">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="MO3SKER">
+    <title>MO3SKER — معسكرك للتركيز والانضباط</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Cairo:wght@400;600;700;900&family=JetBrains+Mono:wght@700&display=swap">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+
+    <!-- PWA Install Banner -->
+    <div id="pwa-banner" class="pwa-banner" style="display:none;">
+        <div class="pwa-banner-content">
+            <div class="pwa-icon-wrap">
+                <img src="logo.svg" alt="Logo" width="36" height="36">
+            </div>
+            <div class="pwa-text">
+                <strong>ثبّت MO3SKER على جهازك</strong>
+                <span>تجربة أفضل وعمل بدون إنترنت</span>
+            </div>
+            <div class="pwa-actions">
+                <button id="pwa-install-btn" class="btn btn-primary btn-sm">تثبيت الآن</button>
+                <button id="pwa-dismiss-btn" class="pwa-close">✕</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="glass-header">
+        <div class="header-content container">
+            <div class="logo-area">
+                <img src="logo.svg" alt="MO3SKER" class="logo-img">
+                <p class="tagline">معسكرك للتركيز والانضباط</p>
+            </div>
+            <div class="user-stats-header">
+                <div class="stat-pill xp-pill">
+                    <span>⚡ XP</span>
+                    <span id="total-xp">0</span>
+                </div>
+                <div class="stat-pill level-pill">
+                    <span>🏅</span>
+                    <span id="user-level">Rookie</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container main-layout">
+        <!-- Left Column -->
+        <div class="column">
+
+            <!-- Timer Card -->
+            <section class="card timer-card glass">
+                <div class="card-header">
+                    <h2 class="card-title">⏱️ نظام التايمر الذكي</h2>
+                    <div class="timer-mode-toggle">
+                        <button id="mode-countdown" class="active">Countdown</button>
+                        <button id="mode-stopwatch">Stopwatch</button>
+                    </div>
+                </div>
+                <div id="countdown-setup" class="setup-area">
+                    <div class="input-wrapper">
+                        <input type="number" id="timer-input" placeholder="الدقائق" min="1" max="240" value="25">
+                        <span class="input-suffix">دقيقة</span>
+                    </div>
+                </div>
+                <div class="timer-display-container">
+                    <div id="timer-display" class="timer-text">00:25:00</div>
+                    <div class="timer-status-label" id="timer-status">جاهز للبدء</div>
+                    <div class="timer-progress-ring">
+                        <svg viewBox="0 0 100 100">
+                            <circle class="ring-bg" cx="50" cy="50" r="45"></circle>
+                            <circle id="ring-progress" class="ring-fg" cx="50" cy="50" r="45"></circle>
+                        </svg>
+                    </div>
+                </div>
+                <div class="timer-controls">
+                    <button id="timer-start" class="btn btn-primary">▶ ابدأ المعسكر</button>
+                    <button id="timer-pause" class="btn btn-secondary" style="display:none;">⏸ إيقاف مؤقت</button>
+                    <button id="timer-reset" class="btn btn-danger">↺ إعادة ضبط</button>
+                </div>
+            </section>
+
+            <!-- Flight Card -->
+            <section class="card flight-card glass">
+                <h2 class="card-title">✈️ رحلة الإنجاز</h2>
+                <div class="flight-track-container">
+                    <div class="track-line"></div>
+                    <div id="plane-trail" class="plane-trail"></div>
+                    <div id="plane" class="plane">✈️</div>
+                    <div class="track-labels">
+                        <span class="label-start">Cairo 🌍</span>
+                        <span class="label-end">World 🌏</span>
+                    </div>
+                </div>
+                <div class="flight-info">
+                    <div class="info-item">
+                        <span class="label">المسافة المقطوعة</span>
+                        <span id="flight-distance" class="value">0 كم</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">الوجهة القادمة</span>
+                        <span id="next-destination" class="value">البحر الأحمر</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Right Column -->
+        <div class="column">
+
+            <!-- Analytics Card -->
+            <section class="card analytics-card glass">
+                <h2 class="card-title">📊 لوحة التحكم</h2>
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <span class="stat-icon">⏰</span>
+                        <span class="label">وقت المذاكرة</span>
+                        <span id="stat-total-time" class="value">00:00</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-icon">✅</span>
+                        <span class="label">المهام المنجزة</span>
+                        <span id="stat-tasks-done" class="value">0</span>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="activity-chart"></canvas>
+                    <p class="chart-empty" id="chart-empty">ابدأ المذاكرة لرؤية إحصائياتك</p>
+                </div>
+            </section>
+
+            <!-- Camp Card -->
+            <section class="card camp-card glass">
+                <div class="card-header">
+                    <h2 class="card-title">🎯 معسكر المهام</h2>
+                    <button id="add-subject-btn" class="btn-icon" title="إضافة مادة">+</button>
+                </div>
+                <div id="subjects-container" class="subjects-list"></div>
+                <div class="camp-empty" id="camp-empty">
+                    <div class="empty-icon">🎯</div>
+                    <p>لا توجد مواد بعد</p>
+                    <small>اضغط + لإضافة مادتك الأولى</small>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Motivation Bar -->
+    <div id="motivation-engine" class="motivation-bar">
+        <div class="motivation-inner">
+            <span class="motivation-pulse"></span>
+            <p id="motivation-text">استعد… المعسكر يبدأ الآن 🔥</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <p class="footer-credit">تم تطوير بواسطة <span class="dev-name">المبرمج ادهم ايمن</span> ❤️</p>
+    </footer>
+
+    <!-- Modal -->
+    <div id="modal-overlay" class="modal-overlay" style="display:none;">
+        <div class="modal glass">
+            <div class="modal-header">
+                <h3 id="modal-title">إضافة مادة جديدة</h3>
+                <button class="modal-close-btn" id="modal-close">✕</button>
+            </div>
+            <div id="modal-content">
+                <div class="form-group">
+                    <label class="form-label">اسم المادة *</label>
+                    <input type="text" id="subject-name-input" placeholder="مثال: الرياضيات">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">عدد المهام *</label>
+                    <input type="number" id="subject-tasks-input" placeholder="عدد المهام" min="1" max="20" value="3">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">رابط صورة (اختياري)</label>
+                    <input type="text" id="subject-image-input" placeholder="https://...">
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button id="modal-confirm" class="btn btn-primary">✓ تأكيد الإضافة</button>
+                <button id="modal-cancel" class="btn btn-secondary">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Level Up -->
+    <div id="level-up-notif" class="level-up-notif" style="display:none;">
+        <div class="notif-content">
+            <div class="glow"></div>
+            <div class="level-stars">⭐⭐⭐</div>
+            <h2>Level Up!</h2>
+            <p id="new-level-name">Warrior</p>
+            <small>استمر في الإنجاز!</small>
+        </div>
+    </div>
+
+    <!-- Confetti -->
+    <canvas id="confetti-canvas"></canvas>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
